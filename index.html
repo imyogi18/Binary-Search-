@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binary Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    input, button {
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Binary Search</h2>
+    <input type="text" id="array" placeholder="Enter array elements (comma-separated)" />
+    <input type="text" id="target" placeholder="Enter target element" />
+    <button onclick="performSearch()">Search</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function binarySearch(arr, target) {
+      let left = 0;
+      let right = arr.length - 1;
+
+      while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+
+        if (arr[mid] === target) {
+          return mid;
+        } else if (arr[mid] < target) {
+          left = mid + 1;
+        } else {
+          right = mid - 1;
+        }
+      }
+
+      return -1;
+    }
+
+    function performSearch() {
+      let arr = document.getElementById("array").value.split(",").map(Number).sort((a, b) => a - b);
+      const target = parseInt(document.getElementById("target").value);
+
+      if (isNaN(target)) {
+        document.getElementById("result").innerHTML = "Please enter a valid number for the target.";
+        return;
+      }
+
+      // Call the binary search function
+      const result = binarySearch(arr, target);
+
+      if (result !== -1) {
+        document.getElementById("result").innerHTML = `Element found at index: ${result}`;
+      } else {
+        document.getElementById("result").innerHTML = "Element not found";
+      }
+    }
+  </script>
+</body>
+</html>
